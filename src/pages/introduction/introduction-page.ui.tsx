@@ -1,9 +1,14 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { pathKeys } from '../../shared/lib/react-router';
 
 export function IntroductionPage() {
   return (
     <Box>
-      <Typography>Welcome to quiz game</Typography>
+      <Typography variant="h2">Welcome to quiz game</Typography>
+      <Link to={pathKeys.choosing()}>
+        <Button>Play</Button>
+      </Link>
     </Box>
   );
 }
