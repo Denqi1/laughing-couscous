@@ -1,27 +1,25 @@
 import {
+  Route,
   RouterProvider,
   createBrowserRouter,
-  redirect,
-  useRouteError,
+  createRoutesFromElements,
 } from 'react-router-dom';
-import { introductionPageRoute } from '../../pages/introduction';
-import { Page404Route } from '../../pages/page-404';
-import { choosingPageRoute } from '../../pages/choosing';
+import { HomePage } from '../../pages/home';
+import { DifficultyPage } from '../../pages/difficulty';
+import { GamePage } from '../../pages/game';
 import { pathKeys } from '../../shared/lib/react-router';
+import { CategoryPage } from '../../pages/category';
 
-function BubbleError() {
-  const error = useRouteError();
-  if (error) throw error;
-  return null;
-}
-
-const router = createBrowserRouter([
-  {
-    errorElement: <BubbleError />,
-    children: [introductionPageRoute, Page404Route, choosingPageRoute],
-  },
-  { loader: async () => redirect(pathKeys.page404()), path: '*' },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path={pathKeys.home} element={<HomePage />} />
+      <Route path={pathKeys.category} element={<CategoryPage />} />
+      <Route path={pathKeys.difficulty} element={<DifficultyPage />} />
+      <Route path={pathKeys.match} element={<GamePage />} />
+    </>
+  )
+);
 
 export function BrowserRouter() {
   return <RouterProvider router={router} />;
