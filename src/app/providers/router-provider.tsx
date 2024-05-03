@@ -7,8 +7,8 @@ import {
 import { HomePage } from '../../pages/home';
 import { DifficultyPage } from '../../pages/difficulty';
 import { GamePage } from '../../pages/game';
-import { pathKeys } from '../../shared/lib/react-router';
 import { CategoryPage } from '../../pages/category';
+import { pathKeys } from '../../shared/lib/react-router';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

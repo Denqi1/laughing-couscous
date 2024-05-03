@@ -2,11 +2,10 @@ import {
   Box,
   Button,
   Checkbox,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -57,40 +56,53 @@ export function GamePage() {
     setIndexCurrentQuestion(indexCurrentQuestion + 1);
   };
 
-  // console.log('questions', questions);
   console.log('answers', userAnswers);
 
   return (
-    <Box>
-      <Box>{questions[indexCurrentQuestion]?.question}</Box>
-      <List>
+    <Box m="0px 20px">
+      <Box p="90px 46px" m="50px 100px" textAlign="center" bgcolor="#42067d">
+        <Typography fontSize="36px" color="#FFA247">
+          {questions[indexCurrentQuestion]?.question}
+        </Typography>
+      </Box>
+      <Grid
+        rowSpacing={5}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        mb={5}
+        container
+      >
         {Object.values(questions[indexCurrentQuestion]?.answers || {}).map(
           (answer) =>
             answer && (
-              <ListItem key={answer}>
-                <ListItemButton onClick={() => handleToggle(answer)}>
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={checked.indexOf(answer) !== -1}
-                      tabIndex={-1}
+              <Grid item xs={6} key={answer}>
+                <Box bgcolor="#D4A9FF" borderRadius="5px">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox color="default" />}
+                      color="#5A1E96"
+                      label={answer}
                     />
-                  </ListItemIcon>
-                  <ListItemText primary={answer} />
-                </ListItemButton>
-              </ListItem>
+                  </FormGroup>
+                </Box>
+              </Grid>
             )
         )}
-      </List>
-      {indexCurrentQuestion < questions.length ? (
-        <Button
-          onClick={() => handleNextQuestion(questions[indexCurrentQuestion].id)}
-        >
-          Next question
-        </Button>
-      ) : (
-        <Button>Find out the result</Button>
-      )}
+      </Grid>
+      <Box textAlign="center">
+        {indexCurrentQuestion < questions.length ? (
+          <Button
+            onClick={() =>
+              handleNextQuestion(questions[indexCurrentQuestion].id)
+            }
+            variant="contained"
+            color="secondary"
+          >
+            Next question
+          </Button>
+        ) : (
+          <Button>Find out the result</Button>
+        )}
+      </Box>
     </Box>
   );
 }
