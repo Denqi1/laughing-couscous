@@ -12,12 +12,12 @@ const theme = createTheme({
       black: '#000',
       white: '#fff',
     },
-    primary: {
-      main: '#5a1e96',
-      light: '#6f4796',
-      dark: '#42067d',
-      contrastText: '#fff',
-    },
+    // primary: {
+    //   main: '#5a1e96',
+    //   light: '#6f4796',
+    //   dark: '#42067d',
+    //   contrastText: '#fff',
+    // },
     secondary: {
       main: '#e87238',
       light: '#e38b5f',
@@ -31,6 +31,16 @@ const theme = createTheme({
   typography: {
     allVariants: {
       color: '#e8e7e6',
+    },
+  },
+  components: {
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          color: '#5A1E96',
+          fontSize: '18px',
+        },
+      },
     },
   },
 });

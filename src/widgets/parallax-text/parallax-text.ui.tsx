@@ -11,6 +11,7 @@ import {
 import { ParallaxProps } from './parallax-text.types';
 import { useRef } from 'react';
 import { Box } from '@mui/material';
+import './parallax-text.styles.css';
 
 export function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
   const baseX = useMotionValue(0);
