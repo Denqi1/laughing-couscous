@@ -15,8 +15,13 @@ import { Difficulty } from '../../entities/questions';
 export function GamePage() {
   const questions = useGameStore((state) => state.questions);
   const requestQuestions = useGameStore((state) => state.requestQuestions);
+  const correctAnswers = useGameStore((state) => state.correctAnswers);
+
   const userAnswers = useGameStore((state) => state.userAnswers);
   const updateUserAnswers = useGameStore((state) => state.updateUserAnswers);
+
+  console.log('correctAnswers', correctAnswers);
+  console.log('userAnswers', userAnswers);
 
   const { categoryName, difficultyLevel } = useParams<{
     categoryName: string | undefined;
@@ -32,31 +37,30 @@ export function GamePage() {
     })();
   }, [categoryName, difficultyLevel, requestQuestions]);
 
-  const [checked, setChecked] = useState<string[]>([]);
   const [indexCurrentQuestion, setIndexCurrentQuestion] = useState<number>(0);
 
-  const handleToggle = (toggleValue: string) => {
-    const currentIndex = checked.indexOf(toggleValue);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(toggleValue);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
-
-  const handleNextQuestion = (idQuestion: number) => {
-    console.log('next');
-
-    updateUserAnswers(checked, idQuestion);
+  const handleNextQuestion = () => {
+    updateUserAnswers(checked, questions[indexCurrentQuestion].id);
     setChecked([]);
     setIndexCurrentQuestion(indexCurrentQuestion + 1);
   };
 
-  console.log('answers', userAnswers);
+  const [checked, setChecked] = useState<string[]>([]);
+
+  const handleToggle = (userAnswer: string) => {
+    const newChecked = [...checked];
+
+    if (checked.includes(userAnswer)) {
+      const indexChecked = newChecked.indexOf(userAnswer);
+      newChecked.splice(indexChecked, 1);
+      setChecked(newChecked);
+
+      return;
+    }
+
+    newChecked.push(userAnswer);
+    setChecked(newChecked);
+  };
 
   return (
     <Box m="0px 20px">
@@ -75,10 +79,16 @@ export function GamePage() {
           (answer) =>
             answer && (
               <Grid item xs={6} key={answer}>
-                <Box bgcolor="#D4A9FF" borderRadius="5px">
+                <Box bgcolor="#D4A9FF" borderRadius="5px" p={2}>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Checkbox color="default" />}
+                      control={
+                        <Checkbox
+                          onChange={() => handleToggle(answer)}
+                          checked={checked.includes(answer)}
+                          color="default"
+                        />
+                      }
                       color="#5A1E96"
                       label={answer}
                     />
@@ -91,11 +101,9 @@ export function GamePage() {
       <Box textAlign="center">
         {indexCurrentQuestion < questions.length ? (
           <Button
-            onClick={() =>
-              handleNextQuestion(questions[indexCurrentQuestion].id)
-            }
             variant="contained"
             color="secondary"
+            onClick={handleNextQuestion}
           >
             Next question
           </Button>

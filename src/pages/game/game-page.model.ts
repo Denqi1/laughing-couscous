@@ -1,11 +1,9 @@
 import { create } from 'zustand';
 import {
-  IsCorrect,
   QuestionModel,
   RequestQuestionsParams,
   getQuestions,
 } from '../../entities/questions';
-// import { IsCorrect } from '../../entities/questions/questions.types';
 
 type MatchState = {
   questions: QuestionModel[];
@@ -17,18 +15,10 @@ type CorrectAnswers = {
   [indexQuestion: number]: string[];
 };
 
-// type CorrectAnswerLetter = {
-//   [answerLetter: string]: IsCorrect;
-// }
-
 type MatchAction = {
   requestQuestions: (_params: RequestQuestionsParams) => Promise<void>;
   updateUserAnswers: (_answers: string[], _indexQuestion: number) => void;
 };
-
-// type UserAnswersArgs = {
-//   answers: string[];
-// }
 
 export const useGameStore = create<MatchState & MatchAction>((set) => ({
   questions: [],
@@ -39,33 +29,30 @@ export const useGameStore = create<MatchState & MatchAction>((set) => ({
     set((state) => ({ ...state, questions: dataQuestions }));
 
     const correctAnswers = dataQuestions.reduce((obj, question) => {
-      const ob: {
-        [key: string]: string;
-      } = {};
+      const result: string[] | null = [];
 
       for (const [key, value] of Object.entries(question.correct_answers)) {
         if (value === 'true') {
-          const newKey = key.split('_')[0] + '_' + key.split('_')[1];
-          ob[newKey] = newKey;
+          const indexCorrectAnswer = Object.keys(
+            question.correct_answers
+          ).indexOf(key);
 
-          question.correct_answers[newKey];
+          result.push(Object.values(question.answers)[indexCorrectAnswer]!);
         }
       }
 
       return {
         ...obj,
-        // TODO
-        [question.id]: ob,
+        [question.id]: result,
       };
     }, {});
-    console.log('correctAnswers', correctAnswers);
 
-    // set((state) => ({...state, correctAnswers: }))
+    set((state) => ({ ...state, correctAnswers: correctAnswers }));
   },
-  updateUserAnswers: (answers, indexQuestion) => {
+  updateUserAnswers: (answers, idQuestion) => {
     set((state) => ({
       ...state,
-      userAnswers: { ...state.userAnswers, [indexQuestion]: answers },
+      userAnswers: { ...state.userAnswers, [idQuestion]: answers },
     }));
   },
 }));
