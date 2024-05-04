@@ -6,3 +6,4 @@ export type {
   Answers,
   IsCorrect,
 } from './questions.types';
+export { limitQuestions } from './questions.const';

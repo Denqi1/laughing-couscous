@@ -1,7 +1,7 @@
 export type RequestQuestionsParams = {
   category: string | undefined;
   difficulty: Difficulty | undefined;
-  limit?: 10;
+  limit?: number;
 };
 
 export type QuestionModel = {

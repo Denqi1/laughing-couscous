@@ -8,7 +8,7 @@ import {
 type MatchState = {
   questions: QuestionModel[];
   correctAnswers: CorrectAnswers;
-  userAnswers: CorrectAnswers;
+  // userAnswers: CorrectAnswers;
 };
 
 type CorrectAnswers = {
@@ -17,13 +17,13 @@ type CorrectAnswers = {
 
 type MatchAction = {
   requestQuestions: (_params: RequestQuestionsParams) => Promise<void>;
-  updateUserAnswers: (_answers: string[], _indexQuestion: number) => void;
+  // updateUserAnswers: (_answers: string[], _indexQuestion: number) => void;
 };
 
 export const useGameStore = create<MatchState & MatchAction>((set) => ({
   questions: [],
   correctAnswers: {},
-  userAnswers: {},
+  // userAnswers: {},
   requestQuestions: async (params: RequestQuestionsParams) => {
     const dataQuestions = await getQuestions({ ...params });
     set((state) => ({ ...state, questions: dataQuestions }));
@@ -49,10 +49,10 @@ export const useGameStore = create<MatchState & MatchAction>((set) => ({
 
     set((state) => ({ ...state, correctAnswers: correctAnswers }));
   },
-  updateUserAnswers: (answers, idQuestion) => {
-    set((state) => ({
-      ...state,
-      userAnswers: { ...state.userAnswers, [idQuestion]: answers },
-    }));
-  },
+  // updateUserAnswers: (answers, idQuestion) => {
+  //   set((state) => ({
+  //     ...state,
+  //     userAnswers: { ...state.userAnswers, [idQuestion]: answers },
+  //   }));
+  // },
 }));

@@ -1,27 +1,19 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  Typography,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useGameStore } from './game-page.model';
-import { Difficulty } from '../../entities/questions';
+import { Difficulty, limitQuestions } from '../../entities/questions';
+import { AnswerList } from '../../widgets/answer';
+import { useAnswerStore } from '../../entities/answer';
+import { NextQuestionButton } from '../../features/answer';
+import { pathKeys } from '../../shared/lib/react-router';
 
 export function GamePage() {
+  const numberOfAnswers = useAnswerStore((state) => state.numberOfAnswers);
+  const userAnswers = useAnswerStore((state) => state.userAnswers);
+  const correctAnswers = useGameStore((state) => state.correctAnswers);
   const questions = useGameStore((state) => state.questions);
   const requestQuestions = useGameStore((state) => state.requestQuestions);
-  const correctAnswers = useGameStore((state) => state.correctAnswers);
-
-  const userAnswers = useGameStore((state) => state.userAnswers);
-  const updateUserAnswers = useGameStore((state) => state.updateUserAnswers);
-
-  console.log('correctAnswers', correctAnswers);
-  console.log('userAnswers', userAnswers);
 
   const { categoryName, difficultyLevel } = useParams<{
     categoryName: string | undefined;
@@ -33,84 +25,33 @@ export function GamePage() {
       await requestQuestions({
         category: categoryName,
         difficulty: difficultyLevel,
+        limit: limitQuestions,
       });
     })();
   }, [categoryName, difficultyLevel, requestQuestions]);
 
-  const [indexCurrentQuestion, setIndexCurrentQuestion] = useState<number>(0);
+  console.log('correctAnswers', correctAnswers);
+  console.log('userAnswers', userAnswers);
 
-  const handleNextQuestion = () => {
-    updateUserAnswers(checked, questions[indexCurrentQuestion].id);
-    setChecked([]);
-    setIndexCurrentQuestion(indexCurrentQuestion + 1);
-  };
-
-  const [checked, setChecked] = useState<string[]>([]);
-
-  const handleToggle = (userAnswer: string) => {
-    const newChecked = [...checked];
-
-    if (checked.includes(userAnswer)) {
-      const indexChecked = newChecked.indexOf(userAnswer);
-      newChecked.splice(indexChecked, 1);
-      setChecked(newChecked);
-
-      return;
-    }
-
-    newChecked.push(userAnswer);
-    setChecked(newChecked);
-  };
+  const button =
+    // If the current number of answers does not exceed the maximum
+    numberOfAnswers < questions.length - 1 ? (
+      <NextQuestionButton questionId={questions[numberOfAnswers].id} />
+    ) : (
+      <Link to={pathKeys.result}>
+        <Button>Find out the result</Button>
+      </Link>
+    );
 
   return (
     <Box m="0px 20px">
       <Box p="90px 46px" m="50px 100px" textAlign="center" bgcolor="#42067d">
         <Typography fontSize="36px" color="#FFA247">
-          {questions[indexCurrentQuestion]?.question}
+          {questions[numberOfAnswers]?.question}
         </Typography>
       </Box>
-      <Grid
-        rowSpacing={5}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        mb={5}
-        container
-      >
-        {Object.values(questions[indexCurrentQuestion]?.answers || {}).map(
-          (answer) =>
-            answer && (
-              <Grid item xs={6} key={answer}>
-                <Box bgcolor="#D4A9FF" borderRadius="5px" p={2}>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={() => handleToggle(answer)}
-                          checked={checked.includes(answer)}
-                          color="default"
-                        />
-                      }
-                      color="#5A1E96"
-                      label={answer}
-                    />
-                  </FormGroup>
-                </Box>
-              </Grid>
-            )
-        )}
-      </Grid>
-      <Box textAlign="center">
-        {indexCurrentQuestion < questions.length ? (
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleNextQuestion}
-          >
-            Next question
-          </Button>
-        ) : (
-          <Button>Find out the result</Button>
-        )}
-      </Box>
+      <AnswerList answers={questions[numberOfAnswers]?.answers} />
+      <Box textAlign="center">{button}</Box>
     </Box>
   );
 }

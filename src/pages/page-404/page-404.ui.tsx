@@ -11,7 +11,7 @@ export function Page404() {
       <Typography>
         Sorry, we couldn`t find the page you were looking for.
       </Typography>
-      <Link to={pathKeys.introduction()}>
+      <Link to={pathKeys.home}>
         <Button>Back to home page</Button>
       </Link>
     </Box>

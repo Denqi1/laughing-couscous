@@ -14,18 +14,6 @@ export function CategoryList() {
     })();
   }, []);
 
-  // return (
-  //   <Box display="flex" flexDirection="column">
-  //     {categories.map((category) => (
-  //       <Link to={category.name} key={category.id}>
-  //         <Button color="secondary" variant="contained">
-  //           {category.name}
-  //         </Button>
-  //       </Link>
-  //     ))}
-  //   </Box>
-  // );
-
   let duration = 0.5;
 
   return (
