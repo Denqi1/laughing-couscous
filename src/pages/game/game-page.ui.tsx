@@ -1,19 +1,18 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useGameStore } from './game-page.model';
 import { Difficulty, limitQuestions } from '../../entities/questions';
 import { AnswerList } from '../../widgets/answer';
-import { useAnswerStore } from '../../entities/answer';
 import { NextQuestionButton } from '../../features/answer';
 import { pathKeys } from '../../shared/lib/react-router';
+import { useAppStore } from '../../app/model/app-model';
 
 export function GamePage() {
-  const numberOfAnswers = useAnswerStore((state) => state.numberOfAnswers);
-  const userAnswers = useAnswerStore((state) => state.userAnswers);
-  const correctAnswers = useGameStore((state) => state.correctAnswers);
-  const questions = useGameStore((state) => state.questions);
-  const requestQuestions = useGameStore((state) => state.requestQuestions);
+  const numberOfAnswers = useAppStore((state) => state.answers.numberOfAnswers);
+  const userAnswers = useAppStore((state) => state.answers.userAnswers);
+  const correctAnswers = useAppStore((state) => state.game.correctAnswers);
+  const questions = useAppStore((state) => state.game.questions);
+  const requestQuestions = useAppStore((state) => state.game.requestQuestions);
 
   const { categoryName, difficultyLevel } = useParams<{
     categoryName: string | undefined;

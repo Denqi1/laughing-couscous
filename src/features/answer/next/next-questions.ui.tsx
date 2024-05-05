@@ -1,18 +1,20 @@
 import { Button } from '@mui/material';
-import { useAnswerStore } from '../../../entities/answer';
 import { NextQuestionButtonProps } from './next-question.types';
+import { useAppStore } from '../../../app/model/app-model';
 
 export function NextQuestionButton(props: NextQuestionButtonProps) {
   const { questionId } = props;
 
-  const checkedAnswers = useAnswerStore((state) => state.checkedAnswers);
-  const clearCheckedAnswers = useAnswerStore(
-    (state) => state.clearCheckedAnswers
+  const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
+  const clearCheckedAnswers = useAppStore(
+    (state) => state.answers.clearCheckedAnswers
   );
-  const increaseNumberOfAnswers = useAnswerStore(
-    (state) => state.increaseNumberOfAnswers
+  const increaseNumberOfAnswers = useAppStore(
+    (state) => state.answers.increaseNumberOfAnswers
   );
-  const updateUserAnswers = useAnswerStore((state) => state.updateUserAnswers);
+  const updateUserAnswers = useAppStore(
+    (state) => state.answers.updateUserAnswers
+  );
 
   const handleNextQuestion = () => {
     increaseNumberOfAnswers();

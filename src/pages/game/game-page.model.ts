@@ -1,32 +1,28 @@
-import { create } from 'zustand';
+import { ImmerStateCreator } from '../../app/model/app-model';
 import {
   QuestionModel,
   RequestQuestionsParams,
   getQuestions,
 } from '../../entities/questions';
 
-type MatchState = {
+export type GameSlice = {
   questions: QuestionModel[];
   correctAnswers: CorrectAnswers;
-  // userAnswers: CorrectAnswers;
+  requestQuestions: (_params: RequestQuestionsParams) => Promise<void>;
 };
 
 type CorrectAnswers = {
   [indexQuestion: number]: string[];
 };
 
-type MatchAction = {
-  requestQuestions: (_params: RequestQuestionsParams) => Promise<void>;
-  // updateUserAnswers: (_answers: string[], _indexQuestion: number) => void;
-};
-
-export const useGameStore = create<MatchState & MatchAction>((set) => ({
+export const createGameSlice: ImmerStateCreator<GameSlice> = (set) => ({
   questions: [],
   correctAnswers: {},
-  // userAnswers: {},
   requestQuestions: async (params: RequestQuestionsParams) => {
     const dataQuestions = await getQuestions({ ...params });
-    set((state) => ({ ...state, questions: dataQuestions }));
+    set((state) => {
+      state.game.questions = dataQuestions;
+    });
 
     const correctAnswers = dataQuestions.reduce((obj, question) => {
       const result: string[] | null = [];
@@ -47,12 +43,10 @@ export const useGameStore = create<MatchState & MatchAction>((set) => ({
       };
     }, {});
 
-    set((state) => ({ ...state, correctAnswers: correctAnswers }));
+    set((state) => {
+      state.game.correctAnswers = correctAnswers;
+    });
   },
-  // updateUserAnswers: (answers, idQuestion) => {
-  //   set((state) => ({
-  //     ...state,
-  //     userAnswers: { ...state.userAnswers, [idQuestion]: answers },
-  //   }));
-  // },
-}));
+});
+
+console.log(typeof createGameSlice);

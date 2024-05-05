@@ -1,12 +1,12 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { ToggleAnswerButtonProps } from './toggle-answer.types';
-import { useAnswerStore } from '../../../entities/answer';
+import { useAppStore } from '../../../app/model/app-model';
 
 export function ToggleAnswerButton(props: ToggleAnswerButtonProps) {
   const { answer } = props;
 
-  const checkedAnswers = useAnswerStore((state) => state.checkedAnswers);
-  const toggleAnswer = useAnswerStore((state) => state.toggleAnswer);
+  const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
+  const toggleAnswer = useAppStore((state) => state.answers.toggleAnswer);
 
   const handleToggle = (userAnswer: string) => {
     toggleAnswer(userAnswer);

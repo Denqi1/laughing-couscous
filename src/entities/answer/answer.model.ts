@@ -1,59 +1,53 @@
-import { create } from 'zustand';
+import { ImmerStateCreator } from '../../app/model/app-model';
 
-type CorrectAnswers = {
-  [indexQuestion: number]: string[];
-};
-
-type AnswersState = {
+export type AnswersSlice = {
   checkedAnswers: string[];
   numberOfAnswers: number;
   userAnswers: CorrectAnswers;
-};
-
-type AnswersAction = {
   clearCheckedAnswers: () => void;
   toggleAnswer: (_userAnswer: string) => void;
   increaseNumberOfAnswers: () => void;
   updateUserAnswers: (_answers: string[], _indexQuestion: number) => void;
 };
 
-export const useAnswerStore = create<AnswersState & AnswersAction>(
-  (set, get) => ({
-    checkedAnswers: [],
-    numberOfAnswers: 0,
-    userAnswers: {},
-    clearCheckedAnswers: () => {
-      set((state) => ({
-        ...state,
-        checkedAnswers: [],
-      }));
-    },
-    toggleAnswer: (userAnswer: string) => {
-      const checkedAnswers = get().checkedAnswers;
-      const newChecked = [...checkedAnswers];
+type CorrectAnswers = {
+  [indexQuestion: number]: string[];
+};
 
-      if (checkedAnswers.includes(userAnswer)) {
-        const indexChecked = newChecked.indexOf(userAnswer);
-        newChecked.splice(indexChecked, 1);
+export const createAnswersSlice: ImmerStateCreator<AnswersSlice> = (
+  set,
+  get
+) => ({
+  checkedAnswers: [],
+  numberOfAnswers: 0,
+  userAnswers: {},
+  clearCheckedAnswers: () => {
+    set((state) => {
+      state.answers.checkedAnswers = [];
+    });
+  },
+  toggleAnswer: (userAnswer: string) => {
+    const checkedAnswers = get().answers.checkedAnswers;
 
-        set((state) => ({ ...state, checkedAnswers: newChecked }));
-      } else if (!checkedAnswers.includes(userAnswer)) {
-        newChecked.push(userAnswer);
-
-        set((state) => ({ ...state, checkedAnswers: newChecked }));
-      }
-    },
-    increaseNumberOfAnswers() {
-      set((state) => ({
-        ...state,
-        numberOfAnswers: state.numberOfAnswers + 1,
-      }));
-    },
-    updateUserAnswers: (answers, idQuestion) => {
-      set((state) => ({
-        ...state,
-        userAnswers: { ...state.userAnswers, [idQuestion]: answers },
-      }));
-    },
-  })
-);
+    if (checkedAnswers.includes(userAnswer)) {
+      const indexChecked = checkedAnswers.indexOf(userAnswer);
+      set((state) => {
+        state.answers.checkedAnswers.splice(indexChecked, 1);
+      });
+    } else if (!checkedAnswers.includes(userAnswer)) {
+      set((state) => {
+        state.answers.checkedAnswers.push(userAnswer);
+      });
+    }
+  },
+  increaseNumberOfAnswers() {
+    set((state) => {
+      state.answers.numberOfAnswers + 1;
+    });
+  },
+  updateUserAnswers: (answers, idQuestion) => {
+    set((state) => {
+      state.answers.userAnswers = { [idQuestion]: answers };
+    });
+  },
+});
