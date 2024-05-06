@@ -1,4 +1,4 @@
-import { ImmerStateCreator } from '../../app/model/app-model';
+import { ImmerStateCreator } from '../store';
 
 export type AnswersSlice = {
   checkedAnswers: string[];

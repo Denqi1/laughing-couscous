@@ -1,9 +1,11 @@
 import { Button } from '@mui/material';
 import { NextQuestionButtonProps } from './next-question.types';
-import { useAppStore } from '../../../app/model/app-model';
+import { useAppStore } from '../../../app/model';
 
 export function NextQuestionButton(props: NextQuestionButtonProps) {
   const { questionId } = props;
+
+  console.log(questionId);
 
   const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
   const clearCheckedAnswers = useAppStore(

@@ -1,6 +1,6 @@
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { CategoryModel, getCategories } from '../../entities/category';
-import { Box, Button, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 

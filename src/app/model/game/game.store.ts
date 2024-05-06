@@ -1,9 +1,9 @@
-import { ImmerStateCreator } from '../../app/model/app-model';
 import {
+  getQuestions,
   QuestionModel,
   RequestQuestionsParams,
-  getQuestions,
-} from '../../entities/questions';
+} from '../../../entities/questions';
+import { ImmerStateCreator } from '../store';
 
 export type GameSlice = {
   questions: QuestionModel[];
@@ -48,5 +48,3 @@ export const createGameSlice: ImmerStateCreator<GameSlice> = (set) => ({
     });
   },
 });
-
-console.log(typeof createGameSlice);
