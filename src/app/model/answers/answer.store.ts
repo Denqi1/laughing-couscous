@@ -8,6 +8,7 @@ export type AnswersSlice = {
   toggleAnswer: (_userAnswer: string) => void;
   increaseNumberOfAnswers: () => void;
   updateUserAnswers: (_answers: string[], _indexQuestion: number) => void;
+  clearNumberOfAnswers: () => void;
 };
 
 type CorrectAnswers = {
@@ -42,12 +43,17 @@ export const createAnswersSlice: ImmerStateCreator<AnswersSlice> = (
   },
   increaseNumberOfAnswers() {
     set((state) => {
-      state.answers.numberOfAnswers + 1;
+      ++state.answers.numberOfAnswers;
+    });
+  },
+  clearNumberOfAnswers() {
+    set((state) => {
+      state.answers.numberOfAnswers = 0;
     });
   },
   updateUserAnswers: (answers, idQuestion) => {
     set((state) => {
-      state.answers.userAnswers = { [idQuestion]: answers };
+      state.answers.userAnswers[idQuestion] = answers;
     });
   },
 });

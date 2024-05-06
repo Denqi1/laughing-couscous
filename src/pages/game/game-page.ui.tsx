@@ -13,6 +13,9 @@ export function GamePage() {
   const correctAnswers = useAppStore((state) => state.game.correctAnswers);
   const questions = useAppStore((state) => state.game.questions);
   const requestQuestions = useAppStore((state) => state.game.requestQuestions);
+  const clearNumberOfAnswers = useAppStore(
+    (state) => state.answers.clearNumberOfAnswers
+  );
 
   const { categoryName, difficultyLevel } = useParams<{
     categoryName: string | undefined;
@@ -32,15 +35,30 @@ export function GamePage() {
   console.log('correctAnswers', correctAnswers);
   console.log('userAnswers', userAnswers);
 
+  const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
+  const clearCheckedAnswers = useAppStore(
+    (state) => state.answers.clearCheckedAnswers
+  );
+  const updateUserAnswers = useAppStore(
+    (state) => state.answers.updateUserAnswers
+  );
+  const handleResult = () => {
+    updateUserAnswers(checkedAnswers, questions[numberOfAnswers].id);
+    clearCheckedAnswers();
+    clearNumberOfAnswers();
+  };
+
   const button =
     // If the current number of answers does not exceed the maximum
     numberOfAnswers < questions.length - 1 ? (
       <NextQuestionButton questionId={questions[numberOfAnswers].id} />
     ) : (
       <Link to={pathKeys.result}>
-        <Button>Find out the result</Button>
+        <Button onClick={handleResult}>Find out the result</Button>
       </Link>
     );
+
+  console.log('numberOfAnswers', numberOfAnswers);
 
   return (
     <Box m="0px 20px">
