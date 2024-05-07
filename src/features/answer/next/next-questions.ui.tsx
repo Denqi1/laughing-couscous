@@ -5,8 +5,6 @@ import { useAppStore } from '../../../app/model';
 export function NextQuestionButton(props: NextQuestionButtonProps) {
   const { questionId } = props;
 
-  console.log('questionId', questionId);
-
   const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
   const clearCheckedAnswers = useAppStore(
     (state) => state.answers.clearCheckedAnswers

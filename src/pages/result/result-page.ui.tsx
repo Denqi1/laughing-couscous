@@ -8,12 +8,6 @@ export function ResultPage() {
   const userAnswers = useAppStore((state) => state.answers.userAnswers);
   const correctAnswers = useAppStore((state) => state.game.correctAnswers);
   const questions = useAppStore((state) => state.game.questions);
-  console.log('questions', questions);
-  console.log('userAnswers', userAnswers);
-
-  // main: '#e87238',
-  // light: '#e38b5f',
-  // dark: '#d94e09',
 
   return (
     <Box>

@@ -1,12 +1,15 @@
+import { getCorrectAnswers } from './game.lib';
+import { ImmerStateCreator } from '../store';
 import {
   getQuestions,
   QuestionModel,
   RequestQuestionsParams,
 } from '../../../entities/questions';
-import { ImmerStateCreator } from '../store';
 
 export type GameSlice = {
   questions: QuestionModel[];
+  isLoading: boolean;
+  isError: boolean;
   correctAnswers: CorrectAnswers;
   requestQuestions: (_params: RequestQuestionsParams) => Promise<void>;
 };
@@ -18,33 +21,35 @@ type CorrectAnswers = {
 export const createGameSlice: ImmerStateCreator<GameSlice> = (set) => ({
   questions: [],
   correctAnswers: {},
+  isLoading: true,
+  isError: false,
   requestQuestions: async (params: RequestQuestionsParams) => {
-    const dataQuestions = await getQuestions({ ...params });
     set((state) => {
-      state.game.questions = dataQuestions;
+      state.game.isLoading = true;
     });
 
-    const correctAnswers = dataQuestions.reduce((obj, question) => {
-      const result: string[] | null = [];
+    try {
+      const dataQuestions = await getQuestions({ ...params });
+      set((state) => {
+        state.game.questions = dataQuestions;
+      });
 
-      for (const [key, value] of Object.entries(question.correct_answers)) {
-        if (value === 'true') {
-          const indexCorrectAnswer = Object.keys(
-            question.correct_answers
-          ).indexOf(key);
+      const correctAnswers = getCorrectAnswers(dataQuestions);
+      set((state) => {
+        state.game.correctAnswers = correctAnswers;
+      });
 
-          result.push(Object.values(question.answers)[indexCorrectAnswer]!);
-        }
-      }
-
-      return {
-        ...obj,
-        [question.id]: result,
-      };
-    }, {});
+      set((state) => {
+        state.game.isError = false;
+      });
+    } catch (error) {
+      set((state) => {
+        state.game.isError = true;
+      });
+    }
 
     set((state) => {
-      state.game.correctAnswers = correctAnswers;
+      state.game.isLoading = false;
     });
   },
 });

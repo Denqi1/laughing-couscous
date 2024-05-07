@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Difficulty, limitQuestions } from '../../entities/questions';
@@ -9,13 +9,20 @@ import { useAppStore } from '../../app/model/store';
 
 export function GamePage() {
   const numberOfAnswers = useAppStore((state) => state.answers.numberOfAnswers);
-  const userAnswers = useAppStore((state) => state.answers.userAnswers);
-  const correctAnswers = useAppStore((state) => state.game.correctAnswers);
   const questions = useAppStore((state) => state.game.questions);
   const requestQuestions = useAppStore((state) => state.game.requestQuestions);
   const clearNumberOfAnswers = useAppStore(
     (state) => state.answers.clearNumberOfAnswers
   );
+  const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
+  const clearCheckedAnswers = useAppStore(
+    (state) => state.answers.clearCheckedAnswers
+  );
+  const updateUserAnswers = useAppStore(
+    (state) => state.answers.updateUserAnswers
+  );
+  const isLoading = useAppStore((state) => state.game.isLoading);
+  const isError = useAppStore((state) => state.game.isError);
 
   const { categoryName, difficultyLevel } = useParams<{
     categoryName: string | undefined;
@@ -32,16 +39,6 @@ export function GamePage() {
     })();
   }, [categoryName, difficultyLevel, requestQuestions]);
 
-  console.log('correctAnswers', correctAnswers);
-  console.log('userAnswers', userAnswers);
-
-  const checkedAnswers = useAppStore((state) => state.answers.checkedAnswers);
-  const clearCheckedAnswers = useAppStore(
-    (state) => state.answers.clearCheckedAnswers
-  );
-  const updateUserAnswers = useAppStore(
-    (state) => state.answers.updateUserAnswers
-  );
   const handleResult = () => {
     updateUserAnswers(checkedAnswers, questions[numberOfAnswers].id);
     clearCheckedAnswers();
@@ -54,11 +51,45 @@ export function GamePage() {
       <NextQuestionButton questionId={questions[numberOfAnswers].id} />
     ) : (
       <Link to={pathKeys.result}>
-        <Button onClick={handleResult}>Find out the result</Button>
+        <Button onClick={handleResult} variant="contained" color="secondary">
+          Find out the result
+        </Button>
       </Link>
     );
 
-  console.log('numberOfAnswers', numberOfAnswers);
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        height="100dvh"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress color="secondary" size={100} />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box
+        textAlign="center"
+        height="100dvh"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h4" mb={1}>
+          No questions were found for this category and complexity 😥
+        </Typography>
+
+        <Typography variant="h6">
+          Please select a different difficulty or category
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box m="0px 20px">

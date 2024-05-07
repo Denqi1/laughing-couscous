@@ -30,6 +30,5 @@ export async function getQuestions({
     limit,
   });
 
-  console.log(data);
   return data;
 }

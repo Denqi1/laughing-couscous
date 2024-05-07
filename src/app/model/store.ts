@@ -23,7 +23,7 @@ export const useAppStore = create<AppStore>()(
         game: createGameSlice(...args),
         answers: createAnswersSlice(...args),
       }),
-      { name: 'app-store', store: 'app-store', enabled: true }
+      { name: 'app-storage' }
     )
   )
 );
