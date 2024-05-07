@@ -1,4 +1,9 @@
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import {
+  Container,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from '@mui/material';
 import { ReactNode } from 'react';
 
 type CustomThemeProviderProps = {
@@ -49,7 +54,7 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {children}
+      <Container>{children}</Container>
     </ThemeProvider>
   );
 }

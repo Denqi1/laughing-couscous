@@ -1,6 +1,6 @@
 export const pathKeys = {
   home: '/',
   category: 'category/',
-  difficulty: 'category/:categoryName/',
-  match: 'category/:categoryName/difficulty/:difficultyLevel',
+  difficulty: 'difficulty/',
+  result: 'game-result/',
 };

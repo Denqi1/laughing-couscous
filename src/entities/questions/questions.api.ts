@@ -29,5 +29,6 @@ export async function getQuestions({
     difficulty,
     limit,
   });
+
   return data;
 }

@@ -8,15 +8,24 @@ import { HomePage } from '../../pages/home';
 import { DifficultyPage } from '../../pages/difficulty';
 import { GamePage } from '../../pages/game';
 import { CategoryPage } from '../../pages/category';
-import { pathKeys } from '../../shared/lib/react-router';
+import { ResultPage } from '../../pages/result';
+
+const routeKeys = {
+  home: '/',
+  category: 'category/',
+  difficulty: 'category/:categoryName/',
+  match: 'category/:categoryName/difficulty/:difficultyLevel/',
+  result: 'category/:categoryName/difficulty/:difficultyLevel/game-result/',
+};
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path={pathKeys.home} element={<HomePage />} />
-      <Route path={pathKeys.category} element={<CategoryPage />} />
-      <Route path={pathKeys.difficulty} element={<DifficultyPage />} />
-      <Route path={pathKeys.match} element={<GamePage />} />
+      <Route path={routeKeys.home} element={<HomePage />} />
+      <Route path={routeKeys.category} element={<CategoryPage />} />
+      <Route path={routeKeys.difficulty} element={<DifficultyPage />} />
+      <Route path={routeKeys.match} element={<GamePage />} />
+      <Route path={routeKeys.result} element={<ResultPage />} />
     </>
   )
 );

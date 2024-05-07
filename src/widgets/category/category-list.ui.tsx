@@ -1,6 +1,6 @@
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { CategoryModel, getCategories } from '../../entities/category';
-import { Box, Button, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -13,18 +13,6 @@ export function CategoryList() {
       setCategories(dataList);
     })();
   }, []);
-
-  // return (
-  //   <Box display="flex" flexDirection="column">
-  //     {categories.map((category) => (
-  //       <Link to={category.name} key={category.id}>
-  //         <Button color="secondary" variant="contained">
-  //           {category.name}
-  //         </Button>
-  //       </Link>
-  //     ))}
-  //   </Box>
-  // );
 
   let duration = 0.5;
 
