@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import { useAppStore } from '@/app/model';
+import { useAppStore } from '@/app/store';
 import { isArraysEqual } from './result-page.lib';
 import { Link } from 'react-router-dom';
 import { pathKeys } from '@/shared/lib/react-router';

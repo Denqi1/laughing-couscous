@@ -4,11 +4,7 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import { ReactNode } from 'react';
-
-type CustomThemeProviderProps = {
-  children: ReactNode;
-};
+import { CustomThemeProviderProps } from './theme-provider.types';
 
 const theme = createTheme({
   palette: {
@@ -17,12 +13,6 @@ const theme = createTheme({
       black: '#000',
       white: '#fff',
     },
-    // primary: {
-    //   main: '#5a1e96',
-    //   light: '#6f4796',
-    //   dark: '#42067d',
-    //   contrastText: '#fff',
-    // },
     secondary: {
       main: '#e87238',
       light: '#e38b5f',
@@ -50,11 +40,13 @@ const theme = createTheme({
   },
 });
 
-export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
+export const CustomThemeProvider = (props: CustomThemeProviderProps) => {
+  const { children } = props;
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>{children}</Container>
     </ThemeProvider>
   );
-}
+};
