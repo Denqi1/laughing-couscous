@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { pathKeys } from '../../shared/lib/react-router';
+import { pathKeys } from '@/shared/lib/react-router';
 
 export function Page404() {
   return (

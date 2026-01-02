@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import { difficultyLevels } from './difficulty-page.const';
-import { pathKeys } from '../../shared/lib/react-router';
+import { pathKeys } from '@/shared/lib/react-router';
 
 export function DifficultyPage() {
   return (

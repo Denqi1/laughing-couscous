@@ -4,7 +4,7 @@ import {
   getQuestions,
   QuestionModel,
   RequestQuestionsParams,
-} from '../../../entities/questions';
+} from '@/entities/questions';
 
 export type GameSlice = {
   questions: QuestionModel[];

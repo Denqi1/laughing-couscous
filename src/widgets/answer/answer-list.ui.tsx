@@ -1,6 +1,6 @@
 import { Box, FormGroup, Grid } from '@mui/material';
 import { AnswerListProps } from './answer-list.type';
-import { ToggleAnswerButton } from '../../features/answer';
+import { ToggleAnswerButton } from '@/features/answer';
 
 export function AnswerList(props: AnswerListProps) {
   const { answers } = props;

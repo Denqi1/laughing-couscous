@@ -1,8 +1,8 @@
 import { Box, Button, Typography } from '@mui/material';
-import { useAppStore } from '../../app/model';
+import { useAppStore } from '@/app/model';
 import { isArraysEqual } from './result-page.lib';
 import { Link } from 'react-router-dom';
-import { pathKeys } from '../../shared/lib/react-router';
+import { pathKeys } from '@/shared/lib/react-router';
 
 export function ResultPage() {
   const userAnswers = useAppStore((state) => state.answers.userAnswers);

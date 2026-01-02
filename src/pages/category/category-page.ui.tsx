@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { CategoryList } from '../../widgets/category';
+import { CategoryList } from '@/widgets/category';
 
 export function CategoryPage() {
   return (

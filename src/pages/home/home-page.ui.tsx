@@ -1,9 +1,9 @@
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ParallaxText } from '../../widgets/parallax-text';
-import { SmileCouscousSvg } from '../../widgets/couscous';
-import { pathKeys } from '../../shared/lib/react-router';
+import { ParallaxText } from '@/widgets/parallax-text';
+import { SmileCouscousSvg } from '@/widgets/couscous';
+import { pathKeys } from '@/shared/lib/react-router';
 
 export function HomePage() {
   return (

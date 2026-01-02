@@ -1,6 +1,6 @@
 import { ENDPOINT_QUESTIONS } from './questions.const';
 import { QuestionModel, RequestQuestionsParams } from './questions.types';
-import { instance } from '../../shared/lib/axios';
+import { instance } from '@/shared/lib/axios';
 
 async function requestQuestions({
   category,

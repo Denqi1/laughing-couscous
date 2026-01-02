@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { NextQuestionButtonProps } from './next-question.types';
-import { useAppStore } from '../../../app/model';
+import { useAppStore } from '@/app/model';
 
 export function NextQuestionButton(props: NextQuestionButtonProps) {
   const { questionId } = props;

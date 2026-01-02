@@ -1,11 +1,11 @@
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Difficulty, limitQuestions } from '../../entities/questions';
-import { AnswerList } from '../../widgets/answer';
-import { NextQuestionButton } from '../../features/answer';
-import { pathKeys } from '../../shared/lib/react-router';
-import { useAppStore } from '../../app/model/store';
+import { Difficulty, limitQuestions } from '@/entities/questions';
+import { AnswerList } from '@/widgets/answer';
+import { NextQuestionButton } from '@/features/answer';
+import { pathKeys } from '@/shared/lib/react-router';
+import { useAppStore } from '@/app/model/store';
 
 export function GamePage() {
   const numberOfAnswers = useAppStore((state) => state.answers.numberOfAnswers);

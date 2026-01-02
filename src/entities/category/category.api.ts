@@ -1,4 +1,4 @@
-import { instance } from '../../shared/lib/axios';
+import { instance } from '@/shared/lib/axios';
 import { ENDPOINT_CATEGORIES } from './category.const';
 import { CategoryModel } from './category.types';
 
