@@ -11,6 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'eslint-config-prettier',
     'prettier',
+    'plugin:jsdoc/recommended-typescript',
   ],
   settings: {
     react: { version: 'detect' },
@@ -33,8 +34,27 @@ module.exports = {
       },
     ],
     'react/react-in-jsx-scope': 'off',
+
+    'jsdoc/require-jsdoc': [
+      2,
+      {
+        contexts: [
+          'TSInterfaceDeclaration',
+          'TSTypeAliasDeclaration',
+          'TSPropertySignature',
+          'TSMethodSignature',
+          'TSIndexSignature',
+          'TSCallSignatureDeclaration',
+          'TSEnumDeclaration',
+          'TSEnumMember',
+          'TSDeclareFunction',
+        ],
+      },
+    ],
+    'jsdoc/require-param': 0,
+    'jsdoc/require-returns': 0,
   },
   ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'import'],
+  plugins: ['react-refresh', 'import', 'jsdoc'],
 };
