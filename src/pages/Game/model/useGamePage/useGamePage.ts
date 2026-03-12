@@ -55,8 +55,14 @@ export const useGamePage = () => {
   };
 
   const { categoryName, difficultyLevel } = useParams<{
-    categoryName: string | undefined;
-    difficultyLevel: Difficulty | undefined;
+    /**
+     * Route param for the selected category name.
+     */
+    categoryName?: string;
+    /**
+     * Route param for the selected difficulty (e.g. Easy, Medium, Hard).
+     */
+    difficultyLevel?: Difficulty;
   }>();
 
   useEffect(() => {
