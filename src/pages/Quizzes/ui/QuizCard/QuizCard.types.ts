@@ -1,4 +1,4 @@
-import { QuizData } from '../../model/cards';
+import { QuizData } from '@/entities/Quiz';
 
 /**
  *
