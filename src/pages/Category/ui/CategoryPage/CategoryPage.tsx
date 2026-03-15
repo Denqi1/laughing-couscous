@@ -1,40 +1,42 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 
-import { useAppStore } from '@/app/store';
+// import { useAppStore } from '@/app/store';
 import { pathKeys } from '@/shared/lib/reactRouter';
 
 import { CategoryList } from '../CategoryList';
 
+const categories = [{ name: 'javascript', id: 0 }];
+
 export const CategoryPage = () => {
-  const categories = useAppStore((state) => {
-    return state.category.categories;
-  });
-  const isLoading = useAppStore((state) => {
-    return state.category.isLoading;
-  });
-  const requestCategories = useAppStore((state) => {
-    return state.category.requestCategories;
-  });
+  // const categories = useAppStore((state) => {
+  //   return state.category.categories;
+  // });
+  // const isLoading = useAppStore((state) => {
+  //   return state.category.isLoading;
+  // });
+  // const requestCategories = useAppStore((state) => {
+  //   return state.category.requestCategories;
+  // });
 
-  useEffect(() => {
-    requestCategories();
-  }, [requestCategories]);
+  // useEffect(() => {
+  //   requestCategories();
+  // }, [requestCategories]);
 
-  if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        height="100dvh"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <CircularProgress color="secondary" size={100} />
-      </Box>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <Box
+  //       display="flex"
+  //       height="100dvh"
+  //       justifyContent="center"
+  //       alignItems="center"
+  //     >
+  //       <CircularProgress color="secondary" size={100} />
+  //     </Box>
+  //   );
+  // }
 
   return (
     <Box
