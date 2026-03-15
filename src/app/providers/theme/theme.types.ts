@@ -75,11 +75,23 @@ export interface CustomThemeTokens {
 }
 
 declare module '@mui/material/styles' {
+  /**
+   *
+   */
   interface Theme {
+    /**
+     *
+     */
     custom: CustomThemeTokens;
   }
 
+  /**
+   *
+   */
   interface ThemeOptions {
+    /**
+     *
+     */
     custom?: Partial<CustomThemeTokens>;
   }
 }
