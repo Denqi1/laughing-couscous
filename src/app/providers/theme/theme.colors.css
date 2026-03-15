@@ -1,0 +1,45 @@
+/**
+ * Color variables for QuizBeast theme.
+ * Edit here to change the app look; theme.ts references these via var(--name).
+ */
+:root {
+  /* Background */
+  --color-background-default: #5a1e96;
+
+  /* Text on dark background */
+  --color-text-default: #e8e7e6;
+  --color-text-primary: #fff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-text-subtle: rgba(255, 255, 255, 0.5);
+
+  /* Secondary (orange) palette */
+  --color-secondary-main: #e87238;
+  --color-secondary-light: #e38b5f;
+  --color-secondary-dark: #d94e09;
+
+  /* RGB components for use in rgba(..., opacity) */
+  --color-accent-rgb: 255, 162, 71;
+  --color-white-rgb: 255, 255, 255;
+
+  /* Glass surfaces */
+  --glass-background: linear-gradient(
+    135deg,
+    rgba(var(--color-white-rgb), 0.12) 0%,
+    rgba(var(--color-white-rgb), 0.04) 100%
+  );
+  --glass-background-strong: linear-gradient(
+    135deg,
+    rgba(var(--color-white-rgb), 0.08) 0%,
+    rgba(var(--color-white-rgb), 0.02) 100%
+  );
+  --glass-border: 1px solid rgba(var(--color-white-rgb), 0.12);
+  --glass-border-subtle: 1px solid rgba(var(--color-white-rgb), 0.08);
+
+  /* Accent (orange) effects */
+  --accent-glow: 0 8px 30px rgba(var(--color-accent-rgb), 0.35);
+  --accent-glow-hover: 0 6px 28px rgba(var(--color-accent-rgb), 0.12);
+  --accent-overlay: rgba(var(--color-accent-rgb), 0.2);
+  --accent-border: 1px solid rgba(var(--color-accent-rgb), 0.4);
+  --accent-border-hover: rgba(var(--color-accent-rgb), 0.45);
+}
