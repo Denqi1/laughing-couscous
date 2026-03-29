@@ -6,35 +6,40 @@ import {
 } from 'react-router-dom';
 
 import { HomePage } from '@/pages/Home';
-import { DifficultyPage } from '@/pages/Difficulty';
-import { GamePage } from '@/pages/Game';
-import { CategoryPage } from '@/pages/Category';
-import { ResultPage } from '@/pages/Result';
+// import { DifficultyPage } from '@/pages/Difficulty';
+// import { GamePage } from '@/pages/Game';
+// import { CategoryPage } from '@/pages/Category';
+// import { ResultPage } from '@/pages/Result';
 import { Page404 } from '@/pages/404';
 
 import { routePaths } from '@/shared/lib/reactRouter';
+import { QuizzesPage } from '@/pages/Quizzes';
 
 const routesMap = {
   home: {
     path: routePaths.home,
     component: <HomePage />,
   },
-  category: {
-    path: routePaths.category,
-    component: <CategoryPage />,
+  quizzes: {
+    path: routePaths.quizzes,
+    component: <QuizzesPage />,
   },
-  difficulty: {
-    path: routePaths.difficulty,
-    component: <DifficultyPage />,
-  },
-  game: {
-    path: routePaths.game,
-    component: <GamePage />,
-  },
-  result: {
-    path: routePaths.result,
-    component: <ResultPage />,
-  },
+  // category: {
+  //   path: routePaths.category,
+  //   component: <CategoryPage />,
+  // },
+  // difficulty: {
+  //   path: routePaths.difficulty,
+  //   component: <DifficultyPage />,
+  // },
+  // game: {
+  //   path: routePaths.game,
+  //   component: <GamePage />,
+  // },
+  // result: {
+  //   path: routePaths.result,
+  //   component: <ResultPage />,
+  // },
   notFound: {
     path: routePaths.notFound,
     component: <Page404 />,

@@ -7,7 +7,71 @@ import { SmileCouscousSvg } from '@/shared/ui/couscous';
 
 import { pathKeys } from '@/shared/lib/reactRouter';
 
+/**
+ * Available categories, tags, difficulties, question types, and aggregate stats
+ */
+export interface Metadata {
+  /**
+   *
+   */
+  success: boolean;
+  /**
+   *
+   */
+  data: Data;
+}
+
+/**
+ *
+ */
+export interface Data {
+  /**
+   *
+   */
+  difficulties: string[];
+  /**
+   *
+   */
+  questionTypes: string[];
+  /**
+   *
+   */
+  categories: string[];
+  /**
+   *
+   */
+  tags: string[];
+  /**
+   *
+   */
+  stats: Stats;
+}
+
+/**
+ *
+ */
+export interface Stats {
+  /**
+   *
+   */
+  totalQuizzes: number;
+  /**
+   *
+   */
+  totalQuestions: number;
+}
+
 export const HomePage = () => {
+  // useEffect(() => {
+  //   const getMetadata = async () => {
+  //     const { data } = await instance.get<Metadata>('/metadata');
+
+  //     console.log(data.);
+  //   };
+
+  //   getMetadata();
+  // });
+
   return (
     <Box
       height="100dvh"
@@ -37,8 +101,8 @@ export const HomePage = () => {
             variant="h3"
             fontWeight={700}
             textAlign="center"
-            color="#fff"
             mb={1}
+            sx={(theme) => ({ color: theme.custom.textOnDark.primary })}
           >
             Ready to test your knowledge?
           </Typography>
@@ -53,8 +117,8 @@ export const HomePage = () => {
             variant="h6"
             fontWeight={400}
             textAlign="center"
-            color="rgba(255, 255, 255, 0.6)"
             mb={5}
+            sx={(theme) => ({ color: theme.custom.textOnDark.secondary })}
           >
             Pick a category, choose your difficulty, and let`s go!
           </Typography>
@@ -70,22 +134,24 @@ export const HomePage = () => {
             damping: 15,
           }}
         >
-          <Link to={pathKeys.category()} style={{ textDecoration: 'none' }}>
+          <Link to={pathKeys.quizzes()} style={{ textDecoration: 'none' }}>
             <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.95 }}>
               <Button
                 color="secondary"
                 variant="contained"
                 size="large"
-                sx={{
-                  width: '220px',
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  fontWeight: 700,
-                  borderRadius: 2,
-                  boxShadow: '0 8px 30px rgba(255, 162, 71, 0.35)',
+                sx={(theme) => {
+                  return {
+                    width: '220px',
+                    py: 1.5,
+                    fontSize: '1.1rem',
+                    fontWeight: 700,
+                    borderRadius: 2,
+                    boxShadow: theme.custom.accent.glow,
+                  };
                 }}
               >
-                Play
+                List Quizzes
               </Button>
             </motion.div>
           </Link>

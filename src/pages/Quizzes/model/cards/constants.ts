@@ -1,0 +1,2 @@
+export const BASE_LIMIT_CARDS_ON_PAGE = 10;
+export const COUNT_DISPLAY_SKELETON_CARDS = 8;
